@@ -8,7 +8,8 @@ import rich.pretty
 import typer
 
 from pptoml.fetch import fetch_info
-from pptoml.inout import load
+from pptoml.inout import load_config
+from pptoml.validate import validate_config
 
 
 class MetaFormat(str, Enum):
@@ -34,7 +35,7 @@ def info(
     """
     fetch generally useful info about the project from the pyproject config
     """
-    config = load(filepath)
+    config = load_config(filepath)
     info = fetch_info(config)
     for k, v in info.items():
         if type(v) == list:  # how do i make sure the elements are strings?
@@ -56,10 +57,10 @@ def dump(
         s = filepath.read_text(encoding='utf-8')
         print(s) if not pretty else rich.print(rich.markup.escape(s))
     elif format == MetaFormat.dict:
-        config = load(filepath)
+        config = load_config(filepath)
         print(config) if not pretty else rich.print(config)
     elif format == MetaFormat.json:
-        config = load(filepath)
+        config = load_config(filepath)
         s = json.dumps(config)
         print(s) if not pretty else rich.print_json(s)
 
@@ -77,9 +78,10 @@ def get(
 
 @app.command()
 def validate(
-    filepath: Path = typer.Argument(..., help='path to pyproject.toml file'),
+    filepath: Path = typer.Option(Path('./pyproject.toml'), help='path to pyproject.toml file'),
 ) -> None:
     """
     validate pyproject against PEP specifications
     """
-    pass
+    config = load_config(filepath)
+    print('config is', 'valid' if validate_config(config) else 'invalid')

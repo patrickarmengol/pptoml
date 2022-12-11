@@ -62,6 +62,8 @@ info = fetch_info(config)
 │ get       print the value of the specified field    │
 │ info      fetch generally useful info about the     │
 │           project from the pyproject config         │
+│ validate  validate pyproject against PEP            │
+│           specifications                            │
 ╰─────────────────────────────────────────────────────╯
 ```
 
@@ -74,7 +76,10 @@ info = fetch_info(config)
 
 ### 0.2.0
 
-- [ ] validate with schema
+> using existing validate-pyproject library to validate
+> postponed support for PEP 639, tracked in https://github.com/abravalheri/validate-pyproject/issues/70
+
+- [x] validate with schema
 
 ### 0.3.0
 

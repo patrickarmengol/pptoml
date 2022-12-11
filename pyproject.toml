@@ -28,6 +28,7 @@ classifiers = [
 dependencies = [
   "typer[all]",
   "tomli",
+  "validate-pyproject[all]`",
 ]
 
 [project.scripts]

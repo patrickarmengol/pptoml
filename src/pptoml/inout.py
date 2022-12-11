@@ -8,7 +8,7 @@ from typing import Any
 import tomli
 
 
-def load(filepath: Path) -> dict[str, Any]:
+def load_config(filepath: Path) -> dict[str, Any]:
     with filepath.open(mode='rb') as f:
         return tomli.load(f)
 
