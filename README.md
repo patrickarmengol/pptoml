@@ -10,12 +10,59 @@ Library and CLI tool for parsing, validating, modifying, and updating `pyproject
 **Table of Contents**
 
 - [Installation](#installation)
+- [Usage](#usage)
+- [Roadmap](#roadmap)
 - [License](#license)
 
 ## Installation
 
+### as a module
 ```console
+<virtual environment shenanigans>
 pip install pptoml
+```
+
+### as a cli app
+```console
+pipx install pptoml
+```
+
+## Usage
+
+### as a module
+```python
+from pathlib import Path
+from pptoml.inout import load
+from pptoml.fetch import fetch_info
+
+config = load(Path('path/to/pyproject.toml'))
+info = fetch_info(config)
+```
+
+### as a cli app
+```console                                        
+ Usage: pptoml [OPTIONS] COMMAND [ARGS]...             
+                                                       
+ cli for pptoml                                        
+                                                       
+╭─ Options ───────────────────────────────────────────╮
+│ --install-completion          Install completion    │
+│                               for the current       │
+│                               shell.                │
+│ --show-completion             Show completion for   │
+│                               the current shell, to │
+│                               copy it or customize  │
+│                               the installation.     │
+│ --help                        Show this message and │
+│                               exit.                 │
+╰─────────────────────────────────────────────────────╯
+╭─ Commands ──────────────────────────────────────────╮
+│ dump      print pyproject config in specified       │
+│           format                                    │
+│ get       print the value of the specified field    │
+│ info      fetch generally useful info about the     │
+│           project from the pyproject config         │
+╰─────────────────────────────────────────────────────╯
 ```
 
 ## Roadmap
