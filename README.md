@@ -32,10 +32,10 @@ pipx install pptoml
 ### as a module
 ```python
 from pathlib import Path
-from pptoml.inout import load
+from pptoml.inout import load_config
 from pptoml.fetch import fetch_info
 
-config = load(Path('path/to/pyproject.toml'))
+config = load_config(Path('path/to/pyproject.toml'))
 info = fetch_info(config)
 ```
 
@@ -77,6 +77,7 @@ info = fetch_info(config)
 ### 0.2.0
 
 > using existing validate-pyproject library to validate
+>
 > postponed support for PEP 639, tracked in https://github.com/abravalheri/validate-pyproject/issues/70
 
 - [x] validate with schema
