@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "pptoml"
 dynamic = ["version"]
-description = ''
+description = 'Library and CLI tool for parsing, validating, modifying, and updating `pyproject.toml` files. '
 readme = "README.md"
 requires-python = ">=3.7"
 license = "Apache-2.0 OR MIT"
@@ -29,6 +29,9 @@ dependencies = [
   "typer[all]",
   "tomli",
 ]
+
+[project.scripts]
+pptoml = 'pptoml.cli:app'
 
 [project.urls]
 Documentation = "https://github.com/patrickarmengol/pptoml#readme"

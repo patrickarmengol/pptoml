@@ -22,9 +22,8 @@ pip install pptoml
 
 ### 0.1.0
 
-- [ ] fetch general info for the project
+- [x] fetch general info for the project
 - [x] dump config in various formats
-- [ ] get and set fields
 
 ### 0.2.0
 
@@ -33,11 +32,16 @@ pip install pptoml
 ### 0.3.0
 
 - [ ] generate new pyproject.toml with prompts
-- [ ] update version
 
 ### 0.4.0
 
+> the following depend on tomlkit, which is a bit broken for type hinting atm
+
+- [ ] update version
 - [ ] add, remove dependencies
+
+### 0.5.0
+
 - [ ] check for dep updates
 
 

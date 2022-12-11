@@ -1,7 +1,6 @@
 # parsing and dumping pyproject.toml
 
 import json
-from enum import Enum
 from pathlib import Path
 from pprint import pformat
 from typing import Any
@@ -9,14 +8,8 @@ from typing import Any
 import tomli
 
 
-class MetaFormat(str, Enum):
-    toml = 'toml'
-    json = 'json'
-    dict = 'dict'
-
-
 def load(filepath: Path) -> dict[str, Any]:
-    with open(filepath, mode='rb') as f:
+    with filepath.open(mode='rb') as f:
         return tomli.load(f)
 
 
