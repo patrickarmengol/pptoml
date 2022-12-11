@@ -76,18 +76,6 @@ def get(
 
 
 @app.command()
-def set(
-    field: str = typer.Argument(..., help='field to set'),
-    value: str = typer.Argument(..., help='value to set'),
-    filepath: Path = typer.Option(Path('./pyproject.toml'), help='path to pyproject.toml file'),
-) -> None:
-    """
-    add new field or modify existing
-    """
-    pass
-
-
-@app.command()
 def validate(
     filepath: Path = typer.Argument(..., help='path to pyproject.toml file'),
 ) -> None:
