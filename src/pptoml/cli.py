@@ -103,7 +103,7 @@ def new(
         author_name=questionary.text(message='author name: ', validate=val_not_empty_str),
         author_email=questionary.text(message='author email: ', validate=val_not_empty_str),
         github_username=questionary.text(message='github username (for urls): '),
-        tools=questionary.checkbox(message='type checker: ', choices=[questionary.Choice(
+        tools=questionary.checkbox(message='tools: ', choices=[questionary.Choice(
             title=f'{m.value} ({type(m).__name__})', value=m.value) for e in [TypeChecker, Linter, Formatter] for m in e]),
         max_line_length=questionary.text(message='max line length (for tools): ',
                                          validate=val_numeric_str,),  # how do i convert this here?
@@ -120,4 +120,4 @@ def new(
         output_path.write_text(config_str)
         print(f'config written to {output_path}')
     else:
-        print(config_str)
+        print(config_str)  # enables piping to file in commandline
