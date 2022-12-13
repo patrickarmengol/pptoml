@@ -1,22 +1,19 @@
 import json
-from enum import Enum
 from pathlib import Path
+from typing import Callable, Union
 
+import questionary
 import rich
 import rich.markup
 import rich.pretty
 import typer
 
+from pptoml.enums import (Backend, Formatter, License, Linter, MetaFormat,
+                          TypeChecker)
 from pptoml.fetch import fetch_info
+from pptoml.generate import GenSettings, generate_config
 from pptoml.inout import load_config
 from pptoml.validate import validate_config
-
-
-class MetaFormat(str, Enum):
-    toml = 'toml'
-    json = 'json'
-    dict = 'dict'
-
 
 app = typer.Typer()
 
@@ -85,3 +82,42 @@ def validate(
     """
     config = load_config(filepath)
     print('config is', 'valid' if validate_config(config) else 'invalid')
+
+
+@app.command()
+def new(
+    output_path: Path = typer.Option(None, help='desired path for output file'),  # TODO: path checks
+) -> None:
+    """
+    generate a pyproject.toml file
+    """
+
+    val_not_empty_str: Callable[[str], Union[bool, str]] = lambda x: True if len(x) > 0 else 'must not be empty'
+    val_numeric_str: Callable[[str], Union[bool, str]] = lambda x: True if x.isnumeric() else 'must be an integer'
+
+    answers = questionary.form(
+        backend=questionary.select(message='backend: ', choices=[m.value for m in Backend]),
+        project_name=questionary.text(message='project name: ', validate=val_not_empty_str),
+        project_description=questionary.text(message='project description: ', validate=val_not_empty_str),
+        licenses=questionary.checkbox(message='licenses: ', choices=[m.value for m in License]),
+        author_name=questionary.text(message='author name: ', validate=val_not_empty_str),
+        author_email=questionary.text(message='author email: ', validate=val_not_empty_str),
+        github_username=questionary.text(message='github username (for urls): '),
+        tools=questionary.checkbox(message='type checker: ', choices=[questionary.Choice(
+            title=f'{m.value} ({type(m).__name__})', value=m.value) for e in [TypeChecker, Linter, Formatter] for m in e]),
+        max_line_length=questionary.text(message='max line length (for tools): ',
+                                         validate=val_numeric_str,),  # how do i convert this here?
+    ).ask()
+
+    # print(answers)
+
+    # TODO: accept kwargs from commandline
+    settings = GenSettings(**answers)
+
+    config_str = generate_config(settings)
+
+    if output_path:
+        output_path.write_text(config_str)
+        print(f'config written to {output_path}')
+    else:
+        print(config_str)
