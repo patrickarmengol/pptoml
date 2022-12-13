@@ -29,6 +29,7 @@ dependencies = [
   "typer[all]",
   "tomli",
   "validate-pyproject[all]",
+  "questionary"
 ]
 
 [project.scripts]
