@@ -42,7 +42,7 @@ Source = "https://github.com/{github_username}/{project_name}"
 
 PYRIGHT_TEMPLATE = """
 [tool.pyright]
-include = ["src/pptoml", "tests"]
+include = ["src/{project_name}", "tests"]
 exclude = [
     "**/__pycache__",
 ]
@@ -51,7 +51,7 @@ typeCheckingMode = "strict"
 
 MYPY_TEMPLATE = """
 [tool.mypy]
-include = ["src/pptoml", "tests"]
+include = ["src/{project_name}", "tests"]
 exclude = [
     "**/__pycache__",
 ]
@@ -79,7 +79,7 @@ unfixable = [
 ]
 
 [tool.ruff.isort]
-known-first-party = ["pptoml"]
+known-first-party = ["{project_name}"]
 
 [tool.ruff.flake8-tidy-imports]
 ban-relative-imports = "all"
